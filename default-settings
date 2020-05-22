@@ -48,7 +48,7 @@ if [ ! -f /etc/config/placeholder ]; then
   sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
 echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='LEDE D20.5.20'" >> /etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='LEDE D20.5.22'" >> /etc/openwrt_release
   
   sed -i '/ipv6.conf/d' /etc/sysctl.conf
   echo net.ipv6.conf.all.disable_ipv6=1 >> /etc/sysctl.conf
