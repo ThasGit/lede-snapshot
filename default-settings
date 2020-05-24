@@ -49,7 +49,11 @@ if [ ! -f /etc/config/placeholder ]; then
 echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
 echo "DISTRIB_DESCRIPTION='LEDE D20.5.24'" >> /etc/openwrt_release
-  
+
+sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
+echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
+
   sed -i '/ipv6.conf/d' /etc/sysctl.conf
   echo net.ipv6.conf.all.disable_ipv6=1 >> /etc/sysctl.conf
   echo net.ipv6.conf.default.disable_ipv6=1 >> /etc/sysctl.conf
