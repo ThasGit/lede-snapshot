@@ -2,7 +2,7 @@
 #=================================================
 rm -Rf feeds/custom/luci/*
 cd feeds/custom/luci
-#git clone https://github.com/jefferymvp/luci-app-koolproxyR
+git clone https://github.com/jefferymvp/luci-app-koolproxyR
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus
 git clone https://github.com/rufengsuixing/luci-app-adguardhome
 git clone https://github.com/jerrykuku/luci-theme-argon
