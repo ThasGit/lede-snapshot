@@ -3,6 +3,10 @@
 rm -Rf feeds/custom/luci/*
 cd feeds/custom/luci
 git clone https://github.com/jefferymvp/luci-app-koolproxyR
+it clone https://github.com/ledewrt/luci-app-control-mia.git package/luci-app-control-mia
+git clone https://github.com/ledewrt/luci-app-control-timewol.git package/luci-app-control-timewol
+git clone https://github.com/ledewrt/luci-app-control-webrestriction.git package/luci-app-control-webrestriction
+git clone https://github.com/ledewrt/luci-app-control-weburl.git package/luci-app-control-weburl
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus
 git clone https://github.com/rufengsuixing/luci-app-adguardhome
 git clone https://github.com/jerrykuku/luci-theme-argon
