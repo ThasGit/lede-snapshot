@@ -1,0 +1,9 @@
+onfig global
+	option time_update '2'
+	option koolproxy_port '0'
+	option startup_delay '5'
+	option koolproxy_ipv6 '0'
+	option koolproxy_mode '1'
+	option koolproxy_acl_default '1'
+	option koolproxy_rules 'fanboy.txt kp.dat user.txt'
+	option enabled '0'
