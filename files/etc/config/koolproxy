@@ -1,4 +1,4 @@
-onfig global
+config global
 	option time_update '2'
 	option koolproxy_port '0'
 	option startup_delay '5'
@@ -7,3 +7,8 @@ onfig global
 	option koolproxy_acl_default '1'
 	option koolproxy_rules 'fanboy.txt kp.dat user.txt'
 	option enabled '0'
+config rss_rule
+	option load '1'
+	option name 'kpr_our_rule.txt'
+	option url 'https://github.com/user1121114685/koolproxyR_rule_list/raw/master/kpr_our_rule.txt'
+	option file 'kpr_our_rule.txt'
