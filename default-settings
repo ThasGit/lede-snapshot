@@ -23,7 +23,7 @@ uci commit smartdns
   
 if [ ! -f /etc/config/placeholder ]; then
   uci set luci.main.lang=zh_cn
-  uci set luci.main.mediaurlbase=/luci-static/argon
+  uci set luci.main.mediaurlbase=/luci-static/bootstrap
   uci commit luci
   
   uci set system.@system[0].hostname=LEDE
@@ -45,7 +45,9 @@ if [ ! -f /etc/config/placeholder ]; then
   rm -f /usr/lib/lua/luci/view/admin_status/index/ddns.htm
   rm -f /usr/lib/lua/luci/view/admin_status/index/minidlna.htm
   
-  #sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/eqos.lua
+  sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/eqos.lua
+  sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua
+  
   
   sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
 echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
