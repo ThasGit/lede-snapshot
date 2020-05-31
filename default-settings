@@ -45,14 +45,14 @@ if [ ! -f /etc/config/placeholder ]; then
   rm -f /usr/lib/lua/luci/view/admin_status/index/ddns.htm
   rm -f /usr/lib/lua/luci/view/admin_status/index/minidlna.htm
   
-  #sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/eqos.lua
-  #sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua
+  sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/eqos.lua
+  sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua
   
   
   sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
 echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='LEDE D20.5.30'" >> /etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='LEDE D20.5.31'" >> /etc/openwrt_release
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
