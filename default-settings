@@ -52,7 +52,7 @@ if [ ! -f /etc/config/placeholder ]; then
   sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
 echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
 sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='LEDE D20.5.31'" >> /etc/openwrt_release
+echo "DISTRIB_DESCRIPTION='LEDE Snapshots D20.5.31'" >> /etc/openwrt_release
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
