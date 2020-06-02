@@ -20,8 +20,9 @@ dns:
   ratelimit_whitelist: []
   refuse_any: false
   bootstrap_dns:
-  - 9.9.9.9
-  - 149.112.112.112
+  - 8.8.8.8:53
+  - 119.29.29.29:53
+  - 127.0.0.1:5555
   all_servers: true
   edns_client_subnet: false
   allowed_clients: []
@@ -31,20 +32,22 @@ dns:
   safebrowsing_block_host: standard-block.dns.adguard.com
   cache_size: 4194304
   upstream_dns:
-  - 112.124.47.27
-  - 223.5.5.5
-  - 223.6.6.6
-  - 180.76.76.76
-  - 119.29.29.29
-  - 223.5.5.5
-  - 8.8.8.8
-  - 114.114.114.114
-  - 114.114.115.115
-  - 114.215.126.16
-  - 1.2.4.8
-  - 210.2.4.8
-  - https://1.1.1.1/dns-query
-  - https://1.0.0.1/dns-query
+  - 127.0.0.1:5555
+  - tcp://208.67.222.222:5353
+  - tcp://59.51.78.210
+  - tls://1.1.1.1
+  - tls://dns.google
+  - tls://dns.quad9.net
+  - tcp://168.95.1.1
+  - tls://dns.rubyfish.cn
+  - tcp://202.175.82.46
+  - tcp://101.6.6.6:5353
+  - tcp://210.0.255.250
+  - tcp://203.198.7.66
+  - tcp://77.88.8.8
+  - tls://101.101.101.101
+  - tcp://203.198.7.66
+  - tcp://202.56.128.30
   filtering_enabled: true
   filters_update_interval: 24
   parental_sensitivity: 13
