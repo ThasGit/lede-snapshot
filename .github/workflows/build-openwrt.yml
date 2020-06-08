@@ -212,22 +212,22 @@ jobs:
         body: |
             墙内加速下载🔥:
             
-            ${{ env.COWURL }} 🚀
+            奶牛快传: ${{ env.COWURL }} 🚀
             
-            ${{ env.WETRANS }} 🗽
+            WeTransfer: ${{ env.WETRANS }} 🗽
             
             请分配不低于1G 的内存和存储空间 💾
         draft: false
         prerelease: false     
 
-    - name: Upload firmware for release
-      uses: csexton/release-asset-action@master
-      continue-on-error: true
-      if: env.REPO_TOKEN && env.UPLOAD_FIRMWARE_FOR_RELEASE == 'true'
-      with:
-        pattern: "${{ env.FIRMWARE }}/*"
-        github-token: ${{ secrets.REPO_TOKEN }}
-        release-url: ${{ steps.create_release.outputs.upload_url }}
+    #- name: Upload firmware for release
+     # uses: csexton/release-asset-action@master
+     # continue-on-error: true
+     # if: env.REPO_TOKEN && env.UPLOAD_FIRMWARE_FOR_RELEASE == 'true'
+     # with:
+     #   pattern: "${{ env.FIRMWARE }}/*"
+      #  github-token: ${{ secrets.REPO_TOKEN }}
+      #  release-url: ${{ steps.create_release.outputs.upload_url }}
 
     - name: Upload firmware for artifact
       uses: actions/upload-artifact@master
@@ -238,10 +238,10 @@ jobs:
         path: ${{ env.FIRMWARE }}
         
     - name: WeChat notification
-      if: env.SCKEY && !cancelled()
+      if: env.SCKEY
       run: |
         [ ${{ env.status }} == 'success' ] && curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=🎉OpenWrt_${{ env.date3 }}_${{ env.DEVICE_NAME }}编译完成😋 || curl https://sc.ftqq.com/${{ secrets.SCKEY }}.send?text=❌OpenWrt_${{ env.date3 }}_${{ env.DEVICE_NAME }}编译失败😂
     - name: Telegram notification
-      if: env.TELEGRAM_TOKEN && !cancelled()
+      if: env.TELEGRAM_BOT_URL
       run: |
-        [ ${{ env.status }} == 'success' ] && curl -k --data chat_id="${{ secrets.TELEGRAM_TO }}" --data "text=🎉 OpenWrt ${{ env.date3 }} ${{ env.DEVICE_NAME }} 编译成功 😋" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" || curl -k --data chat_id="${{ secrets.TELEGRAM_TO }}" --data "text=❌ OpenWrt ${{ env.date3 }} ${{ env.DEVICE_NAME }} 编译失败 😂" "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage"
+        [ ${{ env.status }} == 'success' ] && curl -d "text=🎉 OpenWrt ${{ env.date3 }} ${{ env.DEVICE_NAME }} 编译成功 😋" -X POST ${{ secrets.TELEGRAM_BOT_URL }} || curl -d "text=❌ OpenWrt ${{ env.date3 }} ${{ env.DEVICE_NAME }} 编译失败 😂" -X POST ${{ secrets.TELEGRAM_BOT_URL }}
