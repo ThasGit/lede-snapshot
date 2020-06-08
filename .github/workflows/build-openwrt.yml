@@ -6,7 +6,7 @@
 # Blog: https://p3terx.com
 #=================================================
 
-name: Build LEDE OpenWrt Snotshop x86_64
+name: LedeWrt_Snotshop_D_x86_64
 
 on: 
   # push: 
