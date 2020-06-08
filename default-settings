@@ -49,10 +49,10 @@ if [ ! -f /etc/config/placeholder ]; then
   sed -i 's/\"network\"/\"control\"/g' /usr/lib/lua/luci/controller/appfilter.lua
   
   
-  sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
-echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
-sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
-echo "DISTRIB_DESCRIPTION='LedeWrt Snapshot D20.6.1'" >> /etc/openwrt_release
+#sed -i '/DISTRIB_REVISION/d' /etc/openwrt_release
+#echo "DISTRIB_REVISION=''" >> /etc/openwrt_release
+#sed -i '/DISTRIB_DESCRIPTION/d' /etc/openwrt_release
+#echo "DISTRIB_DESCRIPTION='LedeWrt Snapshot D20.6.1'" >> /etc/openwrt_release
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
 echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
