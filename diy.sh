@@ -3,7 +3,7 @@
 rm -Rf feeds/custom/luci/*
 cd feeds/custom/luci
 svn co https://github.com/ledewrt/openwrt-package/trunk/others/luci-app-control-webrestriction
-svn co https://github.com/ledewrt/openwrt-package/trunk/others/luci-app-control-timewol
+svn co https://github.com/ledewrt/openwrt-package/trunk/lienol/luci-app-timecontrol
 svn co https://github.com/ledewrt/openwrt-package/trunk/others/luci-app-control-weburl
 svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus
 git clone https://github.com/rufengsuixing/luci-app-adguardhome
