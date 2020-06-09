@@ -109,8 +109,8 @@ sed -i 's/+python\( \|\$\)/+python3/g' package/*/*/*/Makefile
 sed -i 's/@IPV6 //g' package/*/*/*/netfilter.mk
 sed -i "s/askfirst/respawn/g" target/linux/x86/base-files/etc/inittab
 sed -i "/mediaurlbase/d" package/*/*/luci-theme*/root/etc/uci-defaults/*
-date=`date +%m.%d.%Y`
-sed -i "s/DISTRIB_DESCRIPTION.*/DISTRIB_DESCRIPTION='LedeWrt Snapshot D%D %V %C From GaryPang'/g" package/base-files/files/etc/openwrt_release
+date=`date +%Y.%m.%d`
+sed -i "s/DISTRIB_DESCRIPTION.*/DISTRIB_DESCRIPTION='LedeWrt Snapshot D%C From GaryPang'/g" package/base-files/files/etc/openwrt_release
 sed -i "s/# REVISION:=x/REVISION:= $date/g" include/version.mk
 cp -f default-settings package/*/*/default-settings/files/zzz-default-settings
 if [ -n "$(ls -A "patches" 2>/dev/null)" ]; then
