@@ -9,7 +9,7 @@ sed -i "s/# //g" /etc/opkg/distfeeds.conf
 sed -i '/log-facility/d' /etc/dnsmasq.conf
 echo "log-facility=/dev/null" >> /etc/dnsmasq.conf
 
-sed -i "s/127.0.0.1:5335/127.0.0.1:5555/g" /etc/AdGuardHome.yaml
+#sed -i "s/127.0.0.1:5335/127.0.0.1:5555/g" /etc/AdGuardHome.yaml
 
 rm -rf /tmp/luci-*
 
@@ -95,13 +95,13 @@ echo "#iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
   uci set AdGuardHome.AdGuardHome.enabled='1'
   uci commit AdGuardHome
   
-  uci set smartdns.@smartdns[0].enabled='1'
-  uci set smartdns.@smartdns[0].port='5555'
-  uci set smartdns.@smartdns[0].redirect='none'
-  uci set smartdns.@smartdns[0].tcp_server='1'
-  uci set smartdns.@smartdns[0].prefetch_domain='1'
-  uci set smartdns.@smartdns[0].serve_expired='1'
-  uci commit smartdns
+  #uci set smartdns.@smartdns[0].enabled='1'
+  #uci set smartdns.@smartdns[0].port='5555'
+  #uci set smartdns.@smartdns[0].redirect='none'
+  #uci set smartdns.@smartdns[0].tcp_server='1'
+  #uci set smartdns.@smartdns[0].prefetch_domain='1'
+  #uci set smartdns.@smartdns[0].serve_expired='1'
+  #uci commit smartdns
   
   uci -q set aria2.main.split="128"
   uci -q set aria2.main.min_split_size="100K"
