@@ -35,6 +35,7 @@ if [ ! -f /etc/config/placeholder ]; then
   uci commit fstab
   sed -i 's/root::0:0:99999:7:::/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/g' /etc/shadow
   uci set network.lan.ipaddr="192.168.168.1"
+  uci set network.lan.dns='127.0.0.1'
   #uci set network.lan.ifname="eth0"
   #uci set network.wan.ifname="eth1"
   #uci set network.wan.proto=pppoe
@@ -55,8 +56,8 @@ if [ ! -f /etc/config/placeholder ]; then
 #echo "DISTRIB_DESCRIPTION='LedeWrt Snapshot D20.6.1'" >> /etc/openwrt_release
 
 sed -i '/REDIRECT --to-ports 53/d' /etc/firewall.user
-echo "iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
-echo "iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
+echo "#iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
+echo "#iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53" >> /etc/firewall.user
 
   sed -i '/ipv6.conf/d' /etc/sysctl.conf
   echo net.ipv6.conf.all.disable_ipv6=1 >> /etc/sysctl.conf
