@@ -9,7 +9,7 @@ svn co https://github.com/fw876/helloworld/trunk/luci-app-ssr-plus
 git clone https://github.com/rufengsuixing/luci-app-adguardhome
 git clone https://github.com/jerrykuku/luci-theme-argon
 svn co https://github.com/openwrt/luci/trunk/applications/luci-app-acme
-git clone https://github.com/pymumu/luci-app-smartdns -b lede
+git clone https://github.com/pymumu/luci-app-smartdns
 git clone https://github.com/lisaac/luci-app-diskman
 mkdir parted && cp luci-app-diskman/Parted.Makefile parted/Makefile
 git clone https://github.com/tty228/luci-app-serverchan
@@ -23,46 +23,63 @@ svn co https://github.com/openwrt/luci/trunk/applications/luci-app-sqm
 git clone https://github.com/garypang13/r8125
 git clone https://github.com/ElonH/Rclone-OpenWrt && mv -f Rclone-OpenWrt/* ./
 git clone https://github.com/jefferymvp/luci-app-koolproxyR
+git clone https://github.com/garypang13/luci-app-qbittorrent
 
 svn co https://github.com/kenzok8/openwrt-packages/trunk/luci-app-passwall
 svn co https://github.com/Lienol/openwrt-package/trunk/package/tcping
 git clone https://github.com/pexcn/openwrt-chinadns-ng.git chinadns-ng
 svn co https://github.com/Lienol/openwrt-package/trunk/package/brook
 svn co https://github.com/vernesong/OpenClash/branches/master/luci-app-openclash
+git clone https://github.com/frainzy1477/luci-app-clash
 svn co https://github.com/Lienol/openwrt-package/trunk/package/ipt2socks
 svn co https://github.com/solidus1983/luci-theme-opentomato/trunk/luci/themes/luci-theme-opentomato
+svn co https://github.com/Lienol/openwrt-package/trunk/others/luci-app-syncthing
+svn co https://github.com/Lienol/openwrt-package/trunk/others/luci-app-control-timewol
+svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-pptp-vpnserver-manyusers
 
 git clone https://github.com/garypang13/openwrt-adguardhome
-git clone https://github.com/garypang13/luci-app-php-kodexplorer
 git clone https://github.com/garypang13/luci-app-eqos
 # git clone https://github.com/garypang13/openwrt-qbittorrent && mv -f openwrt-qbittorrent/* ./
 git clone https://github.com/garypang13/openwrt-filerun
 git clone https://github.com/garypang13/luci-app-baidupcs-web
+svn co https://github.com/openwrt/packages/branches/openwrt-19.07/libs/libdouble-conversion
+svn co https://github.com/Lienol/openwrt-package/trunk/lienol/luci-app-kodexplorer
+svn co https://github.com/openwrt/openwrt/branches/openwrt-19.07/package/network/services/samba36
 cd -
 
-git clone https://github.com/librespeed/speedtest files/www/speedtest
-mv files/www/speedtest/example-singleServer-full.html files/www/speedtest/index.html
+mv -f feeds/packages/libs/libx264 feeds/custom/luci/libx264
+mv -f feeds/packages/net/aria2 feeds/custom/luci/aria2
+mv -f feeds/packages/admin/netdata feeds/custom/luci/netdata
 
 echo -e "\q" | svn co https://github.com/coolsnowwolf/lede/trunk/package/lean feeds/custom/luci
-svn co https://github.com/openwrt/packages/branches/openwrt-19.07/libs/libdouble-conversion feeds/packages/libs/libdouble-conversion
+#svn co https://github.com/openwrt/packages/branches/openwrt-19.07/libs/libdouble-conversion feeds/packages/libs/libdouble-conversion
 ./scripts/feeds update -a && ./scripts/feeds install -a
 cp -Rf ./diy/* ./
 sed -i 's/..\/..\/luci.mk/$(TOPDIR)\/feeds\/luci\/luci.mk/g' package/feeds/custom/*/Makefile
+sed -i 's/std=\(gnu\|c\)++\(11\|14\)/std=\1++17/g' package/feeds/*/*/Makefile
 
+rm -Rf package/*/*/autocore
 rm -Rf package/*/*/qBittorrent/patches
-rm -Rf feeds/packages/lang/php7 && svn co https://github.com/openwrt/packages/branches/openwrt-19.07/lang/php7 feeds/packages/lang/php7
+rm -Rf package/*/*/luci-app-zerotier/root/etc/init.d/zerotier
 rm -Rf files/usr/share/amule/webserver/AmuleWebUI-Reloaded && git clone https://github.com/MatteoRagni/AmuleWebUI-Reloaded files/usr/share/amule/webserver/AmuleWebUI-Reloaded
 rm -Rf files/usr/share/aria2 && git clone https://github.com/P3TERX/aria2.conf files/usr/share/aria2
 rm -Rf package/*/*/antileech/src/* && git clone https://github.com/persmule/amule-dlp.antiLeech package/feeds/custom/antileech/src
 rm -Rf tools/upx && svn co https://github.com/coolsnowwolf/lede/trunk/tools/upx tools/upx
 svn co https://github.com/coolsnowwolf/lede/trunk/package/lean/default-settings/i18n package/feeds/custom/default-settings/po/zh_Hans
 
-# wget https://raw.githubusercontent.com/openwrt/luci/openwrt-19.07/luci.mk -O feeds/luci/luci.mk
+sed -i 's/\[ -e "$FILE" \] && . "$FILE"/[ -e "$FILE" ] \&\& env -i bash "$FILE"/g' package/base-files/files/etc/profile
+sed -i 's/var opts = \[\]/var opts = \["-k"\]/g' package/feeds/luci/luci-mod-system/htdocs/luci-static/resources/view/system/flash.js
+sed -i '/depends on PACKAGE_php7-cli || PACKAGE_php7-cgi/d' package/*/*/php7/Makefile
+sed -i 's?/etc/config/AdGuardHome?/etc/config/AdGuardHome\n/etc/config/AdGuardHome/AdGuardHome.yaml?g'  package/*/*/luci-app-adguardhome/Makefile
+sed -i 's?\(include $(TOPDIR)/feeds/luci/luci.mk\)?define Package/luci-app-ssr-plus/conffiles\n/etc/config/shadowsocksr\nendef\n\1?g'  package/*/*/luci-app-ssr-plus/Makefile
+sed -i 's/DEPENDS:= strongswan/DEPENDS:=+strongswan/g' package/*/*/strongswan/Makefile
+sed -i 's/+rclone\( \|\$\)/+rclone +fuse-utils\1/g' package/*/*/luci-app-rclone/Makefile
+sed -i 's/+acme\( \|\$\)/+acme +acme-dnsapi\1/g' package/*/*/luci-app-acme/Makefile
+sed -i 's/+amule\( \|\$\)/+amule +antileech\1/g' package/*/*/luci-app-amule/Makefile
 sed -i 's/ @!BUSYBOX_DEFAULT_IP:/ +/g' package/*/*/wrtbwmon/Makefile
-sed -i 's/extra_setting\"/extra_settings\"/g' package/*/*/luci-app-aria2/luasrc/model/cbi/aria2/config.lua
-sed -i 's/services\/aria2/nas\/aria2/g' package/*/*/luci-app-aria2/luasrc/view/aria2/*
 sed -i 's/root\/Download/data\/download\/aria2/g' files/usr/share/aria2/*
 sed -i '/resolvfile=/d' package/*/*/luci-app-adguardhome/root/etc/init.d/AdGuardHome
+sed -i 's/DEPENDS:=/DEPENDS:=+adguardhome /g' package/*/*/luci-app-adguardhome/Makefile
 sed -i 's/LUCI_DEPENDS:=/LUCI_DEPENDS:=+transmission-daemon-openssl /g' package/*/*/luci-app-transmission/Makefile
 sed -i '/_redirect2ssl/d' package/*/*/nginx/Makefile
 sed -i '/init_lan/d' package/*/*/nginx/files/nginx.init
@@ -70,14 +87,13 @@ sed -i '$a /etc/sysupgrade.conf' package/base-files/files/lib/upgrade/keep.d/bas
 sed -i '$a /etc/smartdns' package/base-files/files/lib/upgrade/keep.d/base-files-essential
 sed -i '$a /etc/amule' package/base-files/files/lib/upgrade/keep.d/base-files-essential
 sed -i '$a /www/speedtest/results/telemetry_settings.php' package/base-files/files/lib/upgrade/keep.d/base-files-essential
-find target/linux/x86 -name "config*" | xargs -i sed -i '$a CONFIG_64BIT=y\n# CONFIG_WLAN is not set\n# CONFIG_WIRELESS is not set\
-\nCONFIG_NETFILTER=y\nCONFIG_NETFILTER_XTABLES=y\nCONFIG_NETFILTER_XT_MATCH_STRING=y\nCONFIG_HWMON=y\nCONFIG_SENSORS_CORETEMP=y\nCONFIG_X86_ACPI_CPUFREQ_CPB=y' {}
+sed -i '$a /etc/php7/custom.ini' package/base-files/files/lib/upgrade/keep.d/base-files-essential
+# find target/linux/x86 -name "config*" -exec bash -c 'cat kernel.conf >> "{}"' \;
 sed -i '/continue$/d' package/*/*/luci-app-ssr-plus/root/usr/bin/ssr-switch
 sed -i 's/if test_proxy/sleep 3600\nif test_proxy/g' package/*/*/luci-app-ssr-plus/root/usr/bin/ssr-switch
 sed -i 's/ uci.cursor/ luci.model.uci.cursor/g' package/*/*/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
 sed -i 's/service_start $PROG/service_start $PROG -R/g' package/*/*/php7/files/php7-fpm.init
 sed -i 's/ +kmod-fs-exfat//g' package/*/*/automount/Makefile
-sed -i 's/net.netfilter.nf_conntrack_max=16384/net.netfilter.nf_conntrack_max=105535/g' package/kernel/linux/files/sysctl-nf-conntrack.conf
 rm -Rf package/network/config/firewall/patches/fullconenat.patch
 wget -P package/network/config/firewall/patches/ https://github.com/coolsnowwolf/lede/raw/master/package/network/config/firewall/patches/fullconenat.patch
 sed -i 's/getElementById("cbid/getElementById("widget.cbid/g' package/*/custom/*/luasrc/view/*/*.htm
